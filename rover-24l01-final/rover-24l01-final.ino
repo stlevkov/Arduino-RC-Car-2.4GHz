@@ -6,7 +6,13 @@ const int echoPin = 8;
 long duration;
 long distance;
 
-
+/*
+     FL []=-|-=[] FR
+            |
+            |
+            | 
+     RL []-=|=-[] RR
+*/
  
 // This is the library for the Servo motor micro 
 #include <Servo.h>
@@ -77,7 +83,7 @@ void setup() {
      delay(3000);
      Serial.println("------------------------- - -----------------------");
   // Servo settings starts here *****
-    servo.attach(servo_pin); // Setting pin 8 to be OUTPUT to the servo motor
+    servo.attach(servo_pin); // Setting pin 6 to be OUTPUT to the servo motor
     Serial.println("Servo diagnostics starts.");
     Serial.println("Servo go to middle position!");
 
