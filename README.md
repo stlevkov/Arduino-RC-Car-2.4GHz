@@ -12,7 +12,8 @@ Arduino controlled remote car using 24L01 Transiever 2.4GHz
 
 <h2>Rover Diagram</h2>
 
-![Rover Diagram](https://i.imgur.com/9nCLEKa.png)
+![Rover Diagram](https://i.imgur.com/0vLKrQm.png) 
+
 
 <h2>Joystick Diagram</h2>
 
