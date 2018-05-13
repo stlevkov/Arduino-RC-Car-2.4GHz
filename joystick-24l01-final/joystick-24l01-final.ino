@@ -2,6 +2,7 @@ const int xJoystick = A0;
 const int yJoystick = A1;
 //Asign pin numbers for the Joystick
 const int sw_pin = 7; // digital pin connected to switch output
+const int sw_big = 11; // digital pin connected to switch 2 (the bigger button)
 
 #include <SPI.h>
 #include <nRF24L01.h>
@@ -13,6 +14,7 @@ struct package {
   int xAxis;
   int yAxis;
   int lights;
+  int stopLights;
 };
 
 typedef struct package Package;
@@ -35,7 +37,12 @@ void setup() {
   // Reading X - Axis Front to back, the positions are 1023 - 500 - 0 while 500 is the middle (idle) stage
   // Reading Y - Axis Left to Right the pistions are 0 - 520 - 1023 while the 520 is the middle (idle) stage
   pinMode(sw_pin, INPUT);
+  pinMode(sw_big, INPUT);
   digitalWrite(sw_pin, HIGH);
+
+
+
+  Serial.println("");
 
 }
 
@@ -70,13 +77,28 @@ void loop() {
     data.lights = 1;
     Serial.print(data.lights);
     radio.write(&data, sizeof(data));
+    delay(1000);
   } else {
     data.lights = 0;
   }
+
+  Serial.print("  BTT: ");
+  if (digitalRead(sw_big) == HIGH) {
+    data.stopLights = 1;
+    Serial.print(data.stopLights);
+    radio.write(&data, sizeof(data));
+    delay(1000);
+  } else {
+    data.lights = 0;
+  }
+
   Serial.println("");
+
   // -----------------------------------------
 
-  delay(10);
+  delay(10); // ??????????????????????????????????????????????????????????
+  // TODO WHY I SEND ALWAYS RADIO BUT NOT ONE TIME AT THE AND OF THE LOOP ?
+
   // ****************************************
 
 }

@@ -85,13 +85,13 @@ void setup() {
   Serial.println("Servo diagnostics starts.");
   Serial.println("Servo go to middle position!");
 
-  /*
-    Turn the backlights off  and setup the pinMode
-    pinMode(backLights, OUTPUT);
-    pinMode(frontLights, OUTPUT);
-    digitalWrite(backLights, LOW);
-  */
-  
+
+  //  Turn the backlights off  and setup the pinMode
+  // pinMode(backLights, OUTPUT);
+  pinMode(frontLights, OUTPUT);
+  //  digitalWrite(backLights, LOW);
+
+
   // 2.4GHz Settings starts here
   radio.begin();
   radio.openReadingPipe(1, pipes[0]);
@@ -118,7 +118,7 @@ void setup() {
 void loop() {
   if (radio.available()) {
     radio.read(&data, sizeof(data)); // Read the data and put it into the data object
-  
+
     Serial.print("  X: ");
     Serial.print(data.xAxis);
     Serial.print("  Y: ");
@@ -151,17 +151,19 @@ void loop() {
     }
 
 
-    /*
-      if(data.lights == 1){
-       if (turnFrontLights == 0){
-         digitalWrite(frontLights, HIGH);
-         turnFrontLights = 1;
-       } else {
-         digitalWrite(frontLights, LOW);
-         turnFrontLights = 0;
-       }
+
+    if (data.lights == 1) {
+      if (turnFrontLights == 0) {
+        digitalWrite(frontLights, HIGH);
+        turnFrontLights = 1;
+        Serial.println("FRONT LIGHTS ON");
+      } else if (turnFrontLights == 1){
+        digitalWrite(frontLights, LOW);
+        turnFrontLights = 0;
+        Serial.println("Front LIGHTS OFF");
       }
-    */
+    }
+
   } else {
     Serial.println("No command Recieved");
     motor1.standby();
