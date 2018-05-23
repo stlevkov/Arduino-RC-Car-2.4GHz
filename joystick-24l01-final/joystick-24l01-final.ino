@@ -89,7 +89,7 @@ void loop() {
     radio.write(&data, sizeof(data));
     delay(1000);
   } else {
-    data.lights = 0;
+    data.stopLights = 0;
   }
 
   Serial.println("");

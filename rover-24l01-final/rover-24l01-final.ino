@@ -48,8 +48,9 @@ long mval1 = 0;
 
 
 // Head and Back lights
-const int frontLights = 12;
-int turnBackLights = 0;
+const int stop_led_pin = 11;
+const int front_led_pin = 12;
+int turnStopLights = 0;
 int turnFrontLights = 0;
 
 
@@ -67,6 +68,7 @@ struct package {
   int xAxis;
   int yAxis;
   int lights;
+  int stopLights;
 };
 
 typedef struct package Package;
@@ -88,7 +90,8 @@ void setup() {
 
   //  Turn the backlights off  and setup the pinMode
   // pinMode(backLights, OUTPUT);
-  pinMode(frontLights, OUTPUT);
+  pinMode(front_led_pin, OUTPUT);
+  pinMode(stop_led_pin, OUTPUT);
   //  digitalWrite(backLights, LOW);
 
 
@@ -108,7 +111,7 @@ void setup() {
 
 
   Serial.println("End of diagnostics.");
-  delay(1000);
+ // delay(1000);
   Serial.println("System boot finished.");
   Serial.println("------------------ --- ---------------------");
 
@@ -150,17 +153,27 @@ void loop() {
       servo.write(110);
     }
 
-
-
     if (data.lights == 1) {
       if (turnFrontLights == 0) {
-        digitalWrite(frontLights, HIGH);
+        digitalWrite(front_led_pin, HIGH);
         turnFrontLights = 1;
         Serial.println("FRONT LIGHTS ON");
-      } else if (turnFrontLights == 1){
-        digitalWrite(frontLights, LOW);
+      } else if (turnFrontLights == 1) {
+        digitalWrite(front_led_pin, LOW);
         turnFrontLights = 0;
         Serial.println("Front LIGHTS OFF");
+      }
+    }
+
+    if (data.stopLights == 1) {
+      if (turnStopLights == 0) {
+        digitalWrite(stop_led_pin, HIGH);
+        turnStopLights = 1;
+        Serial.println("STOP LIGHTS ON");
+      } else if (turnStopLights == 1) {
+        digitalWrite(stop_led_pin, LOW);
+        turnStopLights = 0;
+        Serial.println("STOP LIGHTS OFF");
       }
     }
 
