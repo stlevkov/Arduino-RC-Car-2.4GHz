@@ -2,7 +2,7 @@ const int xJoystick = A0;
 const int yJoystick = A1;
 //Asign pin numbers for the Joystick
 const int sw_pin = 7; // digital pin connected to switch output
-const int sw_big = 6; // digital pin connected to switch 2 (the bigger button)
+const int sw_big = 11; // digital pin connected to switch 2 (the bigger button)
 
 #include <SPI.h>
 #include <nRF24L01.h>
@@ -22,7 +22,7 @@ Package data;
 
 
 void setup() {
-  Serial.begin(115200);
+  Serial.begin(57600);
   // ***** Transmitter 2.4GHz nRF24L01 settings *****
   pinMode(2, OUTPUT); // LED for the Transmitt
   radio.begin();
@@ -39,7 +39,6 @@ void setup() {
   pinMode(sw_pin, INPUT);
   pinMode(sw_big, INPUT);
   digitalWrite(sw_pin, HIGH);
-  digitalWrite(sw_big, HIGH);
 
 
 
@@ -84,7 +83,7 @@ void loop() {
   }
 
   Serial.print("  BTT: ");
-  if (digitalRead(sw_big) == LOW) {
+  if (digitalRead(sw_big) == HIGH) {
     data.stopLights = 1;
     Serial.print(data.stopLights);
     radio.write(&data, sizeof(data));
@@ -97,8 +96,8 @@ void loop() {
 
   // -----------------------------------------
 
-  delay(10);
-
+  delay(10); // ??????????????????????????????????????????????????????????
+  // TODO WHY I SEND ALWAYS RADIO BUT NOT ONE TIME AT THE AND OF THE LOOP ?
 
   // ****************************************
 
